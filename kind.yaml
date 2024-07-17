@@ -1,10 +1,12 @@
 kind: Cluster
 apiVersion: kind.x-k8s.io/v1alpha4
 name: malek-cluster
+networking:
+  podSubnet: "10.245.0.0/16"
+  serviceSubnet: "10.96.0.0/12"
 nodes:
 # one node hosting a control plane
 - role: control-plane
-# ingress ready 
   kubeadmConfigPatches:
   - |
     kind: InitConfiguration
@@ -18,3 +20,8 @@ nodes:
   - containerPort: 443
     hostPort: 443
     protocol: TCP
+- role: worker
+- role: worker
+
+
+  # kind create cluster --config=kind.yaml
